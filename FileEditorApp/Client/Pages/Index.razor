@@ -1,7 +1,18 @@
 ﻿@page "/"
+@inject FileEditorAppContext FileEditorAppContext
 
-<h1>Hello, world!</h1>
+<div class="login-form">
+    <input type="text" placeholder="Nazwa użytkownika" class="form-control" @bind="LoginCommand.Username" />
+    <input type="password" placeholder="Hasło" class="form-control" @bind="LoginCommand.Password" />
+    <button class="btn btn-primary" @onclick="Login">Zaloguj się!</button>
+    <p>Nie masz jeszcze konta? <NavLink href="register">Zarejestruj się</NavLink></p>
+</div>
 
-Welcome to your new app.
+@code {
+    public LoginCommand LoginCommand = new LoginCommand { Username = "", Password = "" };
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    public async Task Login(MouseEventArgs eventArgs)
+    {
+        return;
+    }
+}
