@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FileEditorApp.Shared.Commands
 {
-    class CommandDispatcher : ICommandDispatcher
+    public class CommandDispatcher : ICommandDispatcher
     {
         private readonly IComponentContext _context;
 

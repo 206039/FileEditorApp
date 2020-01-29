@@ -1,4 +1,5 @@
-﻿using FileEditorApp.Shared.Commands.Auth;
+﻿using FileEditorApp.Shared.Commands;
+using FileEditorApp.Shared.Commands.Auth;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -8,14 +9,25 @@ namespace FileEditorApp.Server.Controllers
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
-        public AuthController()
+        private readonly ICommandDispatcher _commandDispatcher;
+        public AuthController(ICommandDispatcher commandDispatcher)
         {
+            _commandDispatcher = commandDispatcher;
         }
 
         [Route("login")]
-        public async Task<IActionResult> LoginAsync([FromBody]LoginCommand loginCommand)
+        [HttpPost]
+        public async Task<IActionResult> LoginAsync([FromBody]LoginCommand command)
         {
-            await Task.CompletedTask;
+            await _commandDispatcher.DispatchAsync(command);
+            return Ok();
+        }
+
+        [Route("test")]
+        [HttpGet]
+        public async Task<IActionResult> TestAsync()
+        {
+            await _commandDispatcher.DispatchAsync(new LoginCommand());
             return Ok();
         }
     }

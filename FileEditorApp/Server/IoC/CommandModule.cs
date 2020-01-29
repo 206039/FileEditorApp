@@ -2,7 +2,7 @@
 using FileEditorApp.Shared.Commands;
 using System.Reflection;
 
-namespace FileEditorApp.Shared.IoC
+namespace FileEditorApp.Server.IoC
 {
     public class CommandModule : Autofac.Module
     {
