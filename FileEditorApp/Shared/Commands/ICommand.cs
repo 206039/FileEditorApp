@@ -1,6 +1,6 @@
 ﻿namespace FileEditorApp.Shared.Commands
 {
-    interface ICommand //marker interface
+    public interface ICommand //marker interface
     {
     }
 }

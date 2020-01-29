@@ -1,17 +1,29 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using FileEditorApp.Shared.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.Linq;
 
 namespace FileEditorApp.Server
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+
+        public IConfiguration ConfigurationRoot { get; }
+        public IContainer ApplicationContainer { get; private set; }
+
+        public Startup(IConfiguration configuration)
+        {
+            ConfigurationRoot = configuration;
+        }
+
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
             services.AddResponseCompression(opts =>
@@ -19,10 +31,17 @@ namespace FileEditorApp.Server
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
                     new[] { "application/octet-stream" });
             });
+
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
+
+            builder.RegisterModule<CommandModule>();
+
+            ApplicationContainer = builder.Build();
+            return new AutofacServiceProvider(ApplicationContainer);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
             app.UseResponseCompression();
 
@@ -42,6 +61,8 @@ namespace FileEditorApp.Server
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapFallbackToClientSideBlazor<Client.Startup>("index.html");
             });
+
+            applicationLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }
 }
