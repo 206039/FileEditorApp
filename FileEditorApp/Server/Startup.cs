@@ -4,6 +4,7 @@ using FileEditorApp.Server.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,6 +31,9 @@ namespace FileEditorApp.Server
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
                     new[] { "application/octet-stream" });
+            });
+            services.AddDbContext<EF.AppContext>(options => {
+                options.UseSqlServer(ConfigurationRoot.GetConnectionString("SqlServer"));
             });
 
             var builder = new ContainerBuilder();
