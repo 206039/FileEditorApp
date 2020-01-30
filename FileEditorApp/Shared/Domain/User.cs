@@ -32,6 +32,16 @@ namespace FileEditorApp.Shared.Domain
             Username = username;
         }
 
+        public void SetPassword(string hash, string salt)
+        {
+            if(hash.IsNullOrEmpty() || salt.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException();
+            }
+            Hash = hash;
+            Salt = salt;
+        }
+
         protected User()
         {
         }
