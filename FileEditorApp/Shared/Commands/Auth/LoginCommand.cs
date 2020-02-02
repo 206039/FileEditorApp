@@ -8,5 +8,6 @@ namespace FileEditorApp.Shared.Commands.Auth
     {
         public string Username { get; set; }
         public string Password { get; set; }
+        public Guid CommandId { get; set; }
     }
 }
