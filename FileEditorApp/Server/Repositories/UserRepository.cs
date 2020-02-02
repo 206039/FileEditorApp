@@ -14,6 +14,12 @@ namespace FileEditorApp.Server.Repositories
             _context = context;
         }
 
+        public async Task AddAsync(User user)
+        {
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<User> GetSingleAsync(string username)
             => await _context.Users.SingleOrDefaultAsync(x => x.Username.Equals(username));
     }

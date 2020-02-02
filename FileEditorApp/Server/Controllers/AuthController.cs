@@ -30,13 +30,11 @@ namespace FileEditorApp.Server.Controllers
             return Ok(@event);
         }
 
-        [Route("test")]
-        [HttpGet]
-        public async Task<IActionResult> TestAsync()
+        [HttpPost]
+        public async Task<IActionResult> RegisterAsync([FromBody]RegisterCommand command)
         {
-            await _commandDispatcher.DispatchAsync(new LoginCommand());
-            
-            return Ok();
+            await _commandDispatcher.DispatchAsync(command);
+            return StatusCode(201);
         }
     }
 }

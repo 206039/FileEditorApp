@@ -1,4 +1,5 @@
 ﻿using FileEditorApp.Server.Repositories;
+using FileEditorApp.Shared.Domain;
 using FileEditorApp.Shared.Events.Auth;
 using System;
 using System.Threading.Tasks;
@@ -27,6 +28,21 @@ namespace FileEditorApp.Server.Services
             if (user.Hash != hash)
                 throw new UnauthorizedAccessException();
             return _jwtHandler.CreateToken(user);
+        }
+
+        public async Task RegisterAsync(string username, string password)
+        {
+            var user = await _userRepository.GetSingleAsync(username);
+            if(user!=null)
+            {
+                throw new ServiceException(ServiceExceptionCodes.UserAlreadyExists);
+            }
+
+            var salt = _encryptionService.GetSalt();
+            var hash = _encryptionService.GetHash(password, salt);
+
+            var newUser = new User(username, hash, salt);
+            await _userRepository.AddAsync(newUser);
         }
     }
 }
