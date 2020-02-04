@@ -22,6 +22,8 @@ namespace FileEditorApp.Server.Services
 
         public async Task<UserLoggedInEvent> LoginAsync(string username, string password)
         {
+            if(username.IsNullOrEmpty() || password.IsNullOrEmpty())
+                throw new UnauthorizedAccessException();
             var user = await _userRepository.GetSingleAsync(username);
             if (user == null)
                 throw new UnauthorizedAccessException();

@@ -18,7 +18,7 @@ namespace FileEditorApp.Client.Services
             _httpClient = httpClient;
         }
 
-        public async Task<IEvent> Execute(HttpMethod method,string url, ICommand command, string token=null)
+        public async Task<IEvent> Execute<T>(HttpMethod method,string url, ICommand command, string token=null) where T : IEvent
         {
             var json = JsonConvert.SerializeObject(command);
             var content = new System.Net.Http.StringContent(json, Encoding.UTF8, "application/json");
@@ -53,7 +53,8 @@ namespace FileEditorApp.Client.Services
                 {
                     return new SuccessEvent { StatusCode=(int)response.StatusCode };
                 }
-                return JsonConvert.DeserializeObject<IEvent>(jsonResponse);
+
+                return JsonConvert.DeserializeObject<T>(jsonResponse);
             }
             
         }

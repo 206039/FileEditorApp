@@ -7,7 +7,7 @@ namespace FileEditorApp.Client.Services
 {
     public class FileEditorAppContext
     {
-        public UserLoggedInEvent LoggedUser { get; private set; }
+        public UserLoggedInEvent LoggedUser { get; set; }
         private readonly HttpClient _httpClient;
         public FileEditorAppContext(HttpClient httpClient)
         {

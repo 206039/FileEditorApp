@@ -32,7 +32,7 @@
         {
             ConfirmPasswordError = ExceptionCodes.PasswordsAreNotEqual;
         }
-        var response = await RestService.Execute(HttpMethod.Post, "auth", RegisterCommand);
+        var response = await RestService.Execute<SuccessEvent>(HttpMethod.Post, "auth", RegisterCommand);
         if (response is SuccessEvent success)
         {
             NavigationManager.NavigateTo("/");
