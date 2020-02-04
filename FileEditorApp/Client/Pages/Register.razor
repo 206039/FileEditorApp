@@ -1,2 +1,16 @@
 ﻿@page "/register"
-<h3>Register</h3>
+@inject FileEditorAppContext FileEditorAppContext
+
+    <div class="login-form">
+        <input type="text" placeholder="Nazwa użytkownika" class="form-control" @bind="RegisterCommand.Username" />
+        <input type="password" placeholder="Hasło" class="form-control" @bind="RegisterCommand.Password" />
+        <input type="password" placeholder="Powtórz hasło" class="form-control" @bind="ConfirmPassword" />
+        <button class="btn btn-primary">Zarejestruj się!</button>
+        <p>Masz już konto? <NavLink href="/">Zaloguj się!</NavLink></p>
+    </div>
+
+@code {
+    private RegisterCommand RegisterCommand = new RegisterCommand { Username = "", Password = "" };
+    private string ConfirmPassword { get; set; }
+
+}
