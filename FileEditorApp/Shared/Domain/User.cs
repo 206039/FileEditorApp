@@ -16,6 +16,7 @@ namespace FileEditorApp.Shared.Domain
         public User(string username, string hash, string salt)
         {
             SetUsername(username);
+            SetPassword(hash, salt);
         }
 
         public void SetUsername(string username)

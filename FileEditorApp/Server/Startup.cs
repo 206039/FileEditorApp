@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FileEditorApp.Server.IoC;
+using FileEditorApp.Server.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -62,6 +63,8 @@ namespace FileEditorApp.Server
 
             builder.RegisterModule<CommandModule>();
             builder.RegisterModule(new SettingsModule(ConfigurationRoot));
+            builder.RegisterModule<ServiceModule>();
+            builder.RegisterModule<RepositoryModule>();
 
             ApplicationContainer = builder.Build();
             return new AutofacServiceProvider(ApplicationContainer);
@@ -78,7 +81,7 @@ namespace FileEditorApp.Server
 
             app.UseStaticFiles();
             app.UseClientSideBlazorFiles<Client.Startup>();
-
+            app.UseMiddleware(typeof(ExceptionHandlerMiddleware));
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
