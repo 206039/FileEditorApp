@@ -1,3 +1,4 @@
+using FileEditorApp.Client.Services;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,6 +8,8 @@ namespace FileEditorApp.Client
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<FileEditorAppContext>();
+            services.AddTransient<RestService>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

@@ -1,0 +1,54 @@
+﻿@page "/register"
+@inject FileEditorAppContext FileEditorAppContext
+@inject RestService RestService
+@inject NavigationManager NavigationManager
+
+    <div class="register-form">
+        <input type="text" placeholder="Nazwa użytkownika" class="form-control" @bind="RegisterCommand.Username" />
+        <span class="error">@UsernameError</span>
+        <input type="password" placeholder="Hasło" class="form-control" @bind="RegisterCommand.Password" />
+        <span class="error">@PasswordError</span>
+        <input type="password" placeholder="Powtórz hasło" class="form-control" @bind="ConfirmPassword" />
+        <span class="error">@ConfirmPasswordError</span>
+        <button class="btn btn-primary" @onclick="RegisterUser">Zarejestruj się!</button>
+        <p>Masz już konto? <NavLink href="/">Zaloguj się!</NavLink></p>
+    </div>
+
+@code {
+    private RegisterCommand RegisterCommand = new RegisterCommand { Username = "", Password = "" };
+    private string ConfirmPassword { get; set; }
+    private string UsernameError { get; set; }
+    private string PasswordError { get; set; }
+    private string ConfirmPasswordError { get; set; }
+
+
+    private async Task RegisterUser()
+    {
+        UsernameError = "";
+        PasswordError = "";
+        ConfirmPasswordError = "";
+
+        if (RegisterCommand.Password != ConfirmPassword)
+        {
+            ConfirmPasswordError = ExceptionCodes.PasswordsAreNotEqual;
+        }
+        var response = await RestService.Execute<SuccessEvent>(HttpMethod.Post, "auth", RegisterCommand);
+        if (response is SuccessEvent success)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        if(response is BadRequestEvent userError)
+        {
+            if(userError.Code == ExceptionCodes.UsernameHasNotBeenGiven
+                || userError.Code==ExceptionCodes.UserAlreadyExists
+                || userError.Code==ExceptionCodes.InvalidUsername)
+            {
+                UsernameError = userError.Code;
+            }
+            else if(userError.Code == ExceptionCodes.PasswordHasNotBeenGiven)
+            {
+                PasswordError = userError.Code;
+            }
+        }
+    }
+}
