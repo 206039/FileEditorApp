@@ -1,6 +1,7 @@
 ﻿using FileEditorApp.Server.Repositories;
 using FileEditorApp.Shared.Domain;
 using FileEditorApp.Shared.Events.Auth;
+using FileEditorApp.Shared.Extrensions;
 using System;
 using System.Threading.Tasks;
 
@@ -32,10 +33,14 @@ namespace FileEditorApp.Server.Services
 
         public async Task RegisterAsync(string username, string password)
         {
+            if (password.IsNullOrEmpty())
+            {
+                throw new ServiceException(ExceptionCodes.PasswordHasNotBeenGiven);
+            }
             var user = await _userRepository.GetSingleAsync(username);
             if(user!=null)
             {
-                throw new ServiceException(ServiceExceptionCodes.UserAlreadyExists);
+                throw new ServiceException(ExceptionCodes.UserAlreadyExists);
             }
 
             var salt = _encryptionService.GetSalt();

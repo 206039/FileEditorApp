@@ -1,6 +1,6 @@
 ﻿namespace FileEditorApp.Shared.Events
 {
-    interface IEvent //marker interface
+    public interface IEvent //marker interface
     {
     }
 }
