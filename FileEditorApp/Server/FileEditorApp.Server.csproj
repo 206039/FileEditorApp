@@ -30,4 +30,8 @@
     <ProjectReference Include="..\Shared\FileEditorApp.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handlers\Files\" />
+  </ItemGroup>
+
 </Project>
