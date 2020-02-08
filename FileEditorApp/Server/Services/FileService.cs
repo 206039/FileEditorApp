@@ -32,5 +32,16 @@ namespace FileEditorApp.Server.Services
 
         public async Task<IEnumerable<FileDto>> GetAsync(int userId)
             => _mapper.Map<IEnumerable<FileDto>>(await _dbFileRepository.GetAsync(userId));
+
+        public async Task<SingleFileDto> GetSingleFileAsync(int id)
+        {
+            var dbFile = await _dbFileRepository.GetSingleAsync(id);
+            if(dbFile==null)
+            {
+                throw new ServiceException(ExceptionCodes.FileDoesNotExists);
+            }
+            var fileContent = _fileRepository.GetFileContent(dbFile.Uri);
+            return new SingleFileDto { Content = fileContent, Id = id, Filename=dbFile.Name };
+        }
     }
 }

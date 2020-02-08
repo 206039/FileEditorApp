@@ -35,6 +35,14 @@ namespace FileEditorApp.Server.Controllers
             return Ok(response);
         }
 
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetFileAsync(int id)
+        {
+            var response = await _queryDispatcher.DispatchAsync(new SingleFileQuery { Id = id });
+            return Ok(response);
+        }
+
         private int UserId => int.Parse(User.Claims.ElementAt(0).Value);
     }
 }

@@ -9,5 +9,6 @@
         public static string PasswordsAreNotEqual => "Hasła się nie zgadzają";
         public static string UserWithGivenIdDoesNotExists => "Użytkownik o takim identyfikatorze nie istnieje.";
         public static string FileNameHasNotBeenGiven => "Nie podano nazwy pliku.";
+        public static string FileDoesNotExists => "Plik nie istnieje";
     }
 }
