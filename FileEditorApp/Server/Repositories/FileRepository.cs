@@ -13,5 +13,10 @@ namespace FileEditorApp.Server.Repositories
         {
             return File.ReadAllText(uri);
         }
+
+        public void UpdateFile(string uri, string content)
+        {
+            File.WriteAllText(uri, content);
+        }
     }
 }

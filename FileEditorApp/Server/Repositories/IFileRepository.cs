@@ -4,5 +4,6 @@
     {
         void CreateFile(string uri);
         string GetFileContent(string uri);
+        void UpdateFile(string uri, string content);
     }
 }

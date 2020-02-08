@@ -56,5 +56,17 @@ namespace FileEditorApp.Client.Pages
                 SingleFileDto = result;
             }
         }
+
+        private async Task SaveChanges()
+        {
+            if (SingleFileDto.Id == 0) return;
+            if (SingleFileDto.Filename.IsNullOrEmpty()) return;
+            var updateFileCommand = new UpdateFileCommand { Content = SingleFileDto.Content, Filename = SingleFileDto.Filename, Id = SingleFileDto.Id };
+            if((await RestService.Execute<SuccessEvent>(HttpMethod.Put, "files", updateFileCommand, FileEditorAppContext.LoggedUser.JwtToken)) is SuccessEvent @event)
+            {
+                SingleFileDto = new SingleFileDto { Content = "", Id = 0, Filename = "" };
+                await OnInitializedAsync();
+            }
+        }
     }
 }

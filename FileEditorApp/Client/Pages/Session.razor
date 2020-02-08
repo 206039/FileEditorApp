@@ -22,9 +22,10 @@
         </div>
     </div>
     <div class="col-lg-9 col-sm-12 editor">
-        <h1>@SingleFileDto.Filename</h1>
-        <button>Zapisz!</button>
+        <input type="text" @bind="SingleFileDto.Filename" />
         <br />
-        <textarea @bind="SingleFileDto.Content"></textarea>
+        <textarea style="width: 100%; height:70vh;" @bind="SingleFileDto.Content"></textarea>
+        <br />
+        <button @onclick="SaveChanges">Zapisz!</button>
     </div>
 </div>

@@ -43,5 +43,17 @@ namespace FileEditorApp.Server.Services
             var fileContent = _fileRepository.GetFileContent(dbFile.Uri);
             return new SingleFileDto { Content = fileContent, Id = id, Filename=dbFile.Name };
         }
+
+        public async Task UpdateFileAsync(int id, string name, string content)
+        {
+            var dbFile = await _dbFileRepository.GetSingleAsync(id);
+            if (dbFile == null)
+            {
+                throw new ServiceException(ExceptionCodes.FileDoesNotExists);
+            }
+            dbFile.Name = name;
+            _fileRepository.UpdateFile(dbFile.Uri, content);
+            await _dbFileRepository.UpdateAsync(dbFile);
+        }
     }
 }

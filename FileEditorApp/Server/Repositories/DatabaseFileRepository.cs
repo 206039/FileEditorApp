@@ -27,5 +27,11 @@ namespace FileEditorApp.Server.Repositories
         {
             return await _dbContext.DatabaseFiles.SingleOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task UpdateAsync(DatabaseFile databaseFile)
+        {
+            _dbContext.DatabaseFiles.Update(databaseFile);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

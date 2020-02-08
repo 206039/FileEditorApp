@@ -43,6 +43,14 @@ namespace FileEditorApp.Server.Controllers
             return Ok(response);
         }
 
+        [Authorize]
+        [HttpPut]
+        public async Task<IActionResult> UpdateFileAsync([FromBody]UpdateFileCommand command)
+        {
+            await CommandDispatcher.DispatchAsync(command);
+            return Ok();
+        }
+
         private int UserId => int.Parse(User.Claims.ElementAt(0).Value);
     }
 }
