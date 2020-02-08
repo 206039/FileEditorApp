@@ -22,5 +22,10 @@ namespace FileEditorApp.Server.Repositories
 
         public async Task<IEnumerable<DatabaseFile>> GetAsync(int userId)
             => await _dbContext.DatabaseFiles.Where(x => x.UserId == userId).ToListAsync();
+        
+        public async Task<DatabaseFile> GetSingleAsync(int id)
+        {
+            return await _dbContext.DatabaseFiles.SingleOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

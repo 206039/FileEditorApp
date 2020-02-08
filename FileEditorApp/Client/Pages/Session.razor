@@ -11,7 +11,7 @@
         {
             @foreach (var file in Files)
             {
-                <div class="file-info">
+                <div class="file-info" @onclick="()=> DisplayFile(file.Id)">
                     @file.Name
                 </div>
             }
@@ -22,5 +22,9 @@
         </div>
     </div>
     <div class="col-lg-9 col-sm-12 editor">
+        <h1>@SingleFileDto.Filename</h1>
+        <button>Zapisz!</button>
+        <br />
+        <textarea @bind="SingleFileDto.Content"></textarea>
     </div>
 </div>

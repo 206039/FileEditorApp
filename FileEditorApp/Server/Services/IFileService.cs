@@ -8,5 +8,6 @@ namespace FileEditorApp.Server.Services
     {
         Task CreateFileAsync(int userId, string fileName);
         Task<IEnumerable<FileDto>> GetAsync(int userId);
+        Task<SingleFileDto> GetSingleFileAsync(int id);
     }
 }

@@ -8,5 +8,10 @@ namespace FileEditorApp.Server.Repositories
         {
             File.Create(uri).Dispose();
         }
+
+        public string GetFileContent(string uri)
+        {
+            return File.ReadAllText(uri);
+        }
     }
 }

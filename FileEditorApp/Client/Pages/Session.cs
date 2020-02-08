@@ -17,6 +17,7 @@ namespace FileEditorApp.Client.Pages
         };
 
         private IEnumerable<FileDto> Files { get; set; }
+        private SingleFileDto SingleFileDto = new SingleFileDto { Id = 0, Content = "", Filename = "" };
 
         private void Logout()
         {
@@ -34,6 +35,7 @@ namespace FileEditorApp.Client.Pages
                 "files", CreateFileCommand, FileEditorAppContext.LoggedUser.JwtToken);
             if(@event is SuccessEvent)
             {
+                await OnInitializedAsync();
             }
         }
 
@@ -43,6 +45,15 @@ namespace FileEditorApp.Client.Pages
                 null, FileEditorAppContext.LoggedUser.JwtToken)) is UserFilesQueryResult result)
             {
                 Files = result.Files;
+            }
+        }
+
+        private async Task DisplayFile(int id)
+        {
+            if ((await RestService.Execute<SingleFileDto>(HttpMethod.Get, $"files/{id}",
+                null, FileEditorAppContext.LoggedUser.JwtToken)) is SingleFileDto result)
+            {
+                SingleFileDto = result;
             }
         }
     }
