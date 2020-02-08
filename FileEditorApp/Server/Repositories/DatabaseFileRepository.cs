@@ -1,5 +1,8 @@
 ﻿using FileEditorApp.Server.EF;
 using FileEditorApp.Shared.Domain;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FileEditorApp.Server.Repositories
@@ -16,5 +19,8 @@ namespace FileEditorApp.Server.Repositories
             _dbContext.DatabaseFiles.Add(databaseFile);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<DatabaseFile>> GetAsync(int userId)
+            => await _dbContext.DatabaseFiles.Where(x => x.UserId == userId).ToListAsync();
     }
 }

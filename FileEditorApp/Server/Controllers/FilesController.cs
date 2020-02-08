@@ -1,5 +1,7 @@
 ﻿using FileEditorApp.Shared.Commands;
 using FileEditorApp.Shared.Commands.Files;
+using FileEditorApp.Shared.Queries;
+using FileEditorApp.Shared.Queries.Files;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -9,18 +11,30 @@ namespace FileEditorApp.Server.Controllers
 {
     public class FilesController : BaseController
     {
-        public FilesController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        private readonly IQueryDispatcher _queryDispatcher;
+        public FilesController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher)
         {
+            _queryDispatcher = queryDispatcher;
         }
 
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateFileAsync([FromBody]CreateFileCommand command)
         {
-            var userId = int.Parse(User.Claims.ElementAt(0).Value);
-            command.UserId = userId;
+            command.UserId = UserId;
             await CommandDispatcher.DispatchAsync(command);
             return StatusCode(201);
         }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetAsync()
+        {
+            var response = await _queryDispatcher
+                .DispatchAsync(new UserFilesQuery { UserId = UserId });
+            return Ok(response);
+        }
+
+        private int UserId => int.Parse(User.Claims.ElementAt(0).Value);
     }
 }

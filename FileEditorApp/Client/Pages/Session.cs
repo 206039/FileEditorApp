@@ -1,9 +1,9 @@
 ﻿using FileEditorApp.Shared.Commands.Files;
+using FileEditorApp.Shared.DTO;
 using FileEditorApp.Shared.Events;
 using FileEditorApp.Shared.Extrensions;
-using System;
+using FileEditorApp.Shared.Queries.Files;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -15,6 +15,8 @@ namespace FileEditorApp.Client.Pages
         {
             Filename = ""
         };
+
+        private IEnumerable<FileDto> Files { get; set; }
 
         private void Logout()
         {
@@ -32,6 +34,15 @@ namespace FileEditorApp.Client.Pages
                 "files", CreateFileCommand, FileEditorAppContext.LoggedUser.JwtToken);
             if(@event is SuccessEvent)
             {
+            }
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            if((await RestService.Execute<UserFilesQueryResult>(HttpMethod.Get, "files", 
+                null, FileEditorAppContext.LoggedUser.JwtToken)) is UserFilesQueryResult result)
+            {
+                Files = result.Files;
             }
         }
     }
