@@ -7,5 +7,7 @@
         public static string UserAlreadyExists => "Użytkownik o tej nazwie użytkownika już istnieje";
         public static string PasswordHasNotBeenGiven => "Hasło nie zostało podane.";
         public static string PasswordsAreNotEqual => "Hasła się nie zgadzają";
+        public static string UserWithGivenIdDoesNotExists => "Użytkownik o takim identyfikatorze nie istnieje.";
+        public static string FileNameHasNotBeenGiven => "Nie podano nazwy pliku.";
     }
 }

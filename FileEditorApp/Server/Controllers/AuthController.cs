@@ -8,15 +8,11 @@ using System.Threading.Tasks;
 
 namespace FileEditorApp.Server.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class AuthController : ControllerBase
+    public class AuthController : BaseController
     {
-        private readonly ICommandDispatcher _commandDispatcher;
         private readonly IMemoryCache _memoryCache;
-        public AuthController(ICommandDispatcher commandDispatcher, IMemoryCache memoryCache)
+        public AuthController(ICommandDispatcher commandDispatcher, IMemoryCache memoryCache) : base(commandDispatcher)
         {
-            _commandDispatcher = commandDispatcher;
             _memoryCache = memoryCache;
         }
 
@@ -25,7 +21,7 @@ namespace FileEditorApp.Server.Controllers
         public async Task<IActionResult> LoginAsync([FromBody]LoginCommand command)
         {
             command.CommandId = Guid.NewGuid();
-            await _commandDispatcher.DispatchAsync(command);
+            await CommandDispatcher.DispatchAsync(command);
             var @event = _memoryCache.Get<UserLoggedInEvent>(command.CommandId);
             return Ok(@event);
         }
@@ -33,7 +29,7 @@ namespace FileEditorApp.Server.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterAsync([FromBody]RegisterCommand command)
         {
-            await _commandDispatcher.DispatchAsync(command);
+            await CommandDispatcher.DispatchAsync(command);
             return StatusCode(201);
         }
     }

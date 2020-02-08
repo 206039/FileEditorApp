@@ -1,4 +1,11 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+.container-fluid
+{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -50,4 +57,37 @@
 {
     color: red;
     font-size: 10px;
+}
+
+header
+{
+    height: 4.8vh;
+    width: 100%;
+    text-align: right;
+    border-bottom: 0.2vh solid #808080;
+    padding: 10px;
+}
+
+.menu
+{
+    border-right: 2px solid #808080;
+    height: 95vh;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.create-file
+{
+    height: 50px;
+    padding: 10px 10px;
+    border: 1px solid #808080;
+}
+
+.create-file input[type=text]
+{
+    width: 90%;
+}
+
+.create-file input[type=button] {
+    width: 8%;
 }
