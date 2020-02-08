@@ -7,6 +7,15 @@
         Witaj @FileEditorAppContext.LoggedUser?.Username! <a @onclick="Logout">Wyloguj</a>
     </header>
     <div class="col-lg-3 col-sm-12 menu">
+        @if (Files != null)
+        {
+            @foreach (var file in Files)
+            {
+                <div class="file-info">
+                    @file.Name
+                </div>
+            }
+        }
         <div class="create-file">
             <input type="text" @bind="CreateFileCommand.Filename" placeholder="Dodaj plik" />
             <input type="button" @onclick="CreateFile" value="+" />

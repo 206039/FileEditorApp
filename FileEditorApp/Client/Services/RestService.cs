@@ -25,7 +25,7 @@ namespace FileEditorApp.Client.Services
             var request = new HttpRequestMessage
             {
                 RequestUri = new Uri(url, UriKind.Relative),
-                Content = content,
+                Content = command==null? null : content,
                 Method = method
             };
             if(token!=null)

@@ -83,6 +83,13 @@ header
     border: 1px solid #808080;
 }
 
+.file-info
+{
+    height: 50px;
+    padding: 10px 10px;
+    border: 1px solid #808080;
+}
+
 .create-file input[type=text]
 {
     width: 90%;

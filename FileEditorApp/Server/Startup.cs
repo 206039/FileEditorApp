@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using FileEditorApp.Server.AutoMapper;
 using FileEditorApp.Server.IoC;
 using FileEditorApp.Server.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -36,6 +37,7 @@ namespace FileEditorApp.Server
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
                     new[] { "application/octet-stream" });
             });
+            services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddDbContext<EF.AppContext>(options => {
                 options.UseSqlServer(ConfigurationRoot.GetConnectionString("SqlServer"));
             });
@@ -62,6 +64,7 @@ namespace FileEditorApp.Server
             builder.Populate(services);
 
             builder.RegisterModule<CommandModule>();
+            builder.RegisterModule<QueryModule>();
             builder.RegisterModule(new SettingsModule(ConfigurationRoot));
             builder.RegisterModule<ServiceModule>();
             builder.RegisterModule<RepositoryModule>();
