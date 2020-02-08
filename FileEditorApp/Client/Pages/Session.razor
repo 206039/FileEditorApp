@@ -1,2 +1,17 @@
 ﻿@page "/session"
-<h3>Zalogowano się!</h3>
+@inject FileEditorAppContext FileEditorAppContext
+@inject NavigationManager NavigationManager
+@inject RestService RestService
+<div>
+    <header>
+        Witaj @FileEditorAppContext.LoggedUser?.Username! <a @onclick="Logout">Wyloguj</a>
+    </header>
+    <div class="col-lg-3 col-sm-12 menu">
+        <div class="create-file">
+            <input type="text" @bind="CreateFileCommand.Filename" placeholder="Dodaj plik" />
+            <input type="button" @onclick="CreateFile" value="+" />
+        </div>
+    </div>
+    <div class="col-lg-9 col-sm-12 editor">
+    </div>
+</div>

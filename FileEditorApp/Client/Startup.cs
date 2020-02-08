@@ -8,7 +8,7 @@ namespace FileEditorApp.Client
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<FileEditorAppContext>();
+            services.AddSingleton(new FileEditorAppContext());
             services.AddTransient<RestService>();
         }
 
