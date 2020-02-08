@@ -19,6 +19,12 @@ namespace FileEditorApp.Server.Repositories
             return File.ReadAllText(uri);
         }
 
+        public FileStream SaveFile(string uri)
+        {
+            FileStream fs = File.OpenRead(uri);
+            return fs;
+        }
+
         public void UpdateFile(string uri, string content)
         {
             File.WriteAllText(uri, content);

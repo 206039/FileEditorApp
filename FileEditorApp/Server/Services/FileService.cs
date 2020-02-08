@@ -2,6 +2,7 @@
 using FileEditorApp.Server.Repositories;
 using FileEditorApp.Shared.Domain;
 using FileEditorApp.Shared.DTO;
+using FileEditorApp.Shared.Queries.Files;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -53,6 +54,17 @@ namespace FileEditorApp.Server.Services
             }
             var fileContent = _fileRepository.GetFileContent(dbFile.Uri);
             return new SingleFileDto { Content = fileContent, Id = id, Filename=dbFile.Name };
+        }
+
+        public async Task<DownloadFileQueryResult> SaveFileAsync(int id)
+        {
+            var dbFile = await _dbFileRepository.GetSingleAsync(id);
+            if (dbFile == null)
+            {
+                throw new ServiceException(ExceptionCodes.FileDoesNotExists);
+            }
+            var fs = _fileRepository.SaveFile(dbFile.Uri);
+            return new DownloadFileQueryResult { FileStream = fs, Filename = dbFile.Name };
         }
 
         public async Task UpdateFileAsync(int id, string name, string content)

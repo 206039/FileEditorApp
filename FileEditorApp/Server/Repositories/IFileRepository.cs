@@ -1,4 +1,6 @@
-﻿namespace FileEditorApp.Server.Repositories
+﻿using System.IO;
+
+namespace FileEditorApp.Server.Repositories
 {
     public interface IFileRepository : IRepository
     {
@@ -6,5 +8,6 @@
         string GetFileContent(string uri);
         void UpdateFile(string uri, string content);
         void Delete(string uri);
+        FileStream SaveFile(string uri);
     }
 }

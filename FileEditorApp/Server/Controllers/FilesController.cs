@@ -4,6 +4,7 @@ using FileEditorApp.Shared.Queries;
 using FileEditorApp.Shared.Queries.Files;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -57,6 +58,18 @@ namespace FileEditorApp.Server.Controllers
         {
             await CommandDispatcher.DispatchAsync(new DeleteCommand { Id = id });
             return Ok();
+        }
+
+        [HttpGet("download/{id}")]
+        public async Task<IActionResult> DownloadAsync(int id)
+        {
+            var result = await _queryDispatcher.DispatchAsync(new DownloadFileQuery { Id = id });
+            if(result is DownloadFileQueryResult download)
+            {
+                
+                return File(download.FileStream, "application/octet-stream", download.Filename);
+            }
+            throw new InvalidCastException();
         }
 
         private int UserId => int.Parse(User.Claims.ElementAt(0).Value);

@@ -1,4 +1,5 @@
 ﻿using FileEditorApp.Shared.DTO;
+using FileEditorApp.Shared.Queries.Files;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,5 +12,6 @@ namespace FileEditorApp.Server.Services
         Task<SingleFileDto> GetSingleFileAsync(int id);
         Task UpdateFileAsync(int id, string name, string content);
         Task DeleteAsync(int id);
+        Task<DownloadFileQueryResult> SaveFileAsync(int id);
     }
 }
