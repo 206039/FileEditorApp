@@ -18,7 +18,7 @@ namespace FileEditorApp.Shared.Domain
         {
             SetUserId(userId);
             SetName(name);
-            SetUri(uri);
+            Uri = uri;
         }
 
         private void SetUserId(int userId)
@@ -33,15 +33,6 @@ namespace FileEditorApp.Shared.Domain
             if (name.IsNullOrEmpty())
                 throw new DomainException(ExceptionCodes.FileNameHasNotBeenGiven);
             Name = name;
-        }
-
-        private void SetUri(string uri)
-        {
-            if (!System.Uri.TryCreate(uri, UriKind.Relative, out Uri outUri) || outUri.Scheme != System.Uri.UriSchemeFile)
-            {
-                throw new ArgumentException(uri, nameof(uri));
-            }
-            Uri = uri;
         }
     }
 }

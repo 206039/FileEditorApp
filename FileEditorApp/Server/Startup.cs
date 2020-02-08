@@ -30,7 +30,7 @@ namespace FileEditorApp.Server
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().AddNewtonsoftJson();
+            services.AddMvc();
             services.AddResponseCompression(opts =>
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(

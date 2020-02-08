@@ -9,7 +9,9 @@ namespace FileEditorApp.Server.Handlers.Files
     {
         private readonly IFileService _fileService;
         public CreateFileHandler(IFileService fileService)
-            => _fileService = fileService;
+        {
+            _fileService = fileService;
+        }
 
         public async Task HandleAsync(CreateFileCommand command)
             => await _fileService.CreateFileAsync(command.UserId, command.Filename);

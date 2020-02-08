@@ -3,6 +3,6 @@
     public class CreateFileCommand : ICommand
     {
         public int UserId { get; set; }
-        public string Filename { get; private set; }
+        public string Filename { get; set; }
     }
 }
