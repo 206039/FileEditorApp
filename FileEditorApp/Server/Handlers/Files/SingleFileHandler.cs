@@ -14,7 +14,7 @@ namespace FileEditorApp.Server.Handlers.Files
         }
         public async Task<IQueryResult> HandleAsync(SingleFileQuery query)
         {
-            return await _fileService.GetSingleFileAsync(query.Id);
+            return await _fileService.GetSingleFileAsync(query.Id, query.UserId);
         }
     }
 }

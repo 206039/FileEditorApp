@@ -14,13 +14,16 @@
                 <div class="file-info">
                     <div class="name" @onclick="()=> DisplayFile(file.Id)">@file.Name</div>
                     <div class="delete" @onclick="()=> DeleteFile(file.Id)">Usuń</div>
-                    <div class="download"><a href="/files/download/@file.Id" style="color: white;">Pobierz</a></div>
+                    <div class="download"><a href="/files/download/@file.Id/@FileEditorAppContext.LoggedUser?.JwtToken" style="color: white;" target="_blank">Pobierz</a></div>
                 </div>
             }
         }
         <div class="create-file">
             <input type="text" @bind="CreateFileCommand.Filename" placeholder="Dodaj plik" />
             <input type="button" @onclick="CreateFile" value="+" />
+        </div>
+        <div class="upload-file">
+            <InputFile OnChange="HandleSelection"/>
         </div>
     </div>
     <div class="col-lg-9 col-sm-12 editor">

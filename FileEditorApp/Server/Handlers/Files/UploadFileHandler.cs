@@ -5,16 +5,17 @@ using System.Threading.Tasks;
 
 namespace FileEditorApp.Server.Handlers.Files
 {
-    public class UpdateFileHandler : ICommandHandler<UpdateFileCommand>
+    public class UploadFileHandler : ICommandHandler<UploadFileCommand>
     {
         private readonly IFileService _fileService;
-        public UpdateFileHandler(IFileService fileService)
+        public UploadFileHandler(IFileService fileService)
         {
             _fileService = fileService;
         }
-        public async Task HandleAsync(UpdateFileCommand command)
+
+        public async Task HandleAsync(UploadFileCommand command)
         {
-            await _fileService.UpdateFileAsync(command.Id, command.Filename, command.Content, command.UserId);
+            await _fileService.UploadFileAsync(command.UserId, command.Filename, command.MemoryStream);
         }
     }
 }

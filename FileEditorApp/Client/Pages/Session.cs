@@ -1,9 +1,12 @@
-﻿using FileEditorApp.Shared.Commands.Files;
+﻿using BlazorInputFile;
+using FileEditorApp.Shared.Commands.Files;
 using FileEditorApp.Shared.DTO;
 using FileEditorApp.Shared.Events;
 using FileEditorApp.Shared.Extrensions;
 using FileEditorApp.Shared.Queries.Files;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -75,6 +78,21 @@ namespace FileEditorApp.Client.Pages
             {
                 await OnInitializedAsync();
             }
+        }
+
+        private async Task HandleSelection(IFileListEntry[] files)
+        {
+            var file = files.FirstOrDefault();
+            if (file != null)
+            {
+                var ms = new MemoryStream();
+                await file.Data.CopyToAsync(ms);
+                if((await RestService.SendFile<SuccessEvent>(HttpMethod.Post,"files/upload",ms, file.Name, FileEditorAppContext.LoggedUser.JwtToken) is SuccessEvent))
+                {
+                    await OnInitializedAsync();
+                }
+            }
+
         }
     }
 }

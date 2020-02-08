@@ -9,5 +9,6 @@ namespace FileEditorApp.Server.Repositories
         void UpdateFile(string uri, string content);
         void Delete(string uri);
         FileStream SaveFile(string uri);
+        void SendFile(string uri, MemoryStream ms);
     }
 }

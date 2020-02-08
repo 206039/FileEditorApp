@@ -25,6 +25,16 @@ namespace FileEditorApp.Server.Repositories
             return fs;
         }
 
+        public void SendFile(string uri, MemoryStream ms)
+        {
+            using (var fileStream = new FileStream(uri, FileMode.Create))
+            {
+                ms.Position = 0;
+                ms.CopyTo(fileStream);
+            }
+            
+        }
+
         public void UpdateFile(string uri, string content)
         {
             File.WriteAllText(uri, content);

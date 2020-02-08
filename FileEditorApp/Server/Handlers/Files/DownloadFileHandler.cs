@@ -14,7 +14,7 @@ namespace FileEditorApp.Server.Handlers.Files
         }
         public async Task<IQueryResult> HandleAsync(DownloadFileQuery query)
         {
-            return await _fileService.SaveFileAsync(query.Id);
+            return await _fileService.SaveFileAsync(query.Id, query.Token);
         }
     }
 }

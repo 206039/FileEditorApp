@@ -17,7 +17,7 @@ namespace FileEditorApp.Server.Handlers.Files
         }
         public async Task HandleAsync(DeleteCommand command)
         {
-            await _fileService.DeleteAsync(command.Id);
+            await _fileService.DeleteAsync(command.Id, command.UserId);
         }
     }
 }
