@@ -1,0 +1,36 @@
+﻿@page "/session"
+@inject FileEditorAppContext FileEditorAppContext
+@inject NavigationManager NavigationManager
+@inject RestService RestService
+<div>
+    <header>
+        Witaj @FileEditorAppContext.LoggedUser?.Username! <a @onclick="Logout">Wyloguj</a>
+    </header>
+    <div class="col-lg-3 col-sm-12 menu">
+        @if (Files != null)
+        {
+            @foreach (var file in Files)
+            {
+                <div class="file-info">
+                    <div class="name" @onclick="()=> DisplayFile(file.Id)">@file.Name</div>
+                    <div class="delete" @onclick="()=> DeleteFile(file.Id)">Usuń</div>
+                    <div class="download"><a href="/files/download/@file.Id/@FileEditorAppContext.LoggedUser?.JwtToken" style="color: white;" target="_blank">Pobierz</a></div>
+                </div>
+            }
+        }
+        <div class="create-file">
+            <input type="text" @bind="CreateFileCommand.Filename" placeholder="Dodaj plik" />
+            <input type="button" @onclick="CreateFile" value="+" />
+        </div>
+        <div class="upload-file">
+            <InputFile OnChange="HandleSelection"/>
+        </div>
+    </div>
+    <div class="col-lg-9 col-sm-12 editor">
+        <input type="text" @bind="SingleFileDto.Filename" />
+        <br />
+        <textarea style="width: 100%; height:70vh;" @bind="SingleFileDto.Content"></textarea>
+        <br />
+        <button @onclick="SaveChanges">Zapisz!</button>
+    </div>
+</div>

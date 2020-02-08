@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileEditorApp.Server", "FileEditorApp\Server\FileEditorApp.Server.csproj", "{4306E4FA-DF30-4E22-B9F1-2941E6181A1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileEditorApp.Server", "FileEditorApp\Server\FileEditorApp.Server.csproj", "{4306E4FA-DF30-4E22-B9F1-2941E6181A1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileEditorApp.Client", "FileEditorApp\Client\FileEditorApp.Client.csproj", "{9859F19B-6539-4E8A-9A33-3841D924EFB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileEditorApp.Client", "FileEditorApp\Client\FileEditorApp.Client.csproj", "{9859F19B-6539-4E8A-9A33-3841D924EFB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileEditorApp.Shared", "FileEditorApp\Shared\FileEditorApp.Shared.csproj", "{C5D1E375-E3D3-413D-BD9D-C092E6721D21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileEditorApp.Shared", "FileEditorApp\Shared\FileEditorApp.Shared.csproj", "{C5D1E375-E3D3-413D-BD9D-C092E6721D21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
