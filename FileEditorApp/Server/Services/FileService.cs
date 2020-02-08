@@ -30,6 +30,17 @@ namespace FileEditorApp.Server.Services
             _fileRepository.CreateFile(dbFile.Uri);
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var dbFile = await _dbFileRepository.GetSingleAsync(id);
+            if (dbFile == null)
+            {
+                throw new ServiceException(ExceptionCodes.FileDoesNotExists);
+            }
+            _fileRepository.Delete(dbFile.Uri);
+            await _dbFileRepository.DeleteAsync(dbFile);
+        }
+
         public async Task<IEnumerable<FileDto>> GetAsync(int userId)
             => _mapper.Map<IEnumerable<FileDto>>(await _dbFileRepository.GetAsync(userId));
 

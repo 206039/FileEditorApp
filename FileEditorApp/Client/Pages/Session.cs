@@ -68,5 +68,13 @@ namespace FileEditorApp.Client.Pages
                 await OnInitializedAsync();
             }
         }
+
+        private async Task DeleteFile(int id)
+        {
+            if((await RestService.Execute<SuccessEvent>(HttpMethod.Delete, $"files/{id}", null, FileEditorAppContext.LoggedUser.JwtToken) is SuccessEvent))
+            {
+                await OnInitializedAsync();
+            }
+        }
     }
 }

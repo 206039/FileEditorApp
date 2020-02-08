@@ -51,6 +51,14 @@ namespace FileEditorApp.Server.Controllers
             return Ok();
         }
 
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            await CommandDispatcher.DispatchAsync(new DeleteCommand { Id = id });
+            return Ok();
+        }
+
         private int UserId => int.Parse(User.Claims.ElementAt(0).Value);
     }
 }

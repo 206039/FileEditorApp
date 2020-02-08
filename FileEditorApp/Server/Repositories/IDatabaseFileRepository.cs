@@ -10,5 +10,6 @@ namespace FileEditorApp.Server.Repositories
         Task<IEnumerable<DatabaseFile>> GetAsync(int userId);
         Task<DatabaseFile> GetSingleAsync(int id);
         Task UpdateAsync(DatabaseFile databaseFile);
+        Task DeleteAsync(DatabaseFile databaseFile);
     }
 }

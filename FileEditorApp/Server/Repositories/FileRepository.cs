@@ -9,6 +9,11 @@ namespace FileEditorApp.Server.Repositories
             File.Create(uri).Dispose();
         }
 
+        public void Delete(string uri)
+        {
+            File.Delete(uri);
+        }
+
         public string GetFileContent(string uri)
         {
             return File.ReadAllText(uri);

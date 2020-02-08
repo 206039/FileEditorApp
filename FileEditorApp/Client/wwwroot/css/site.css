@@ -92,8 +92,9 @@ header
 .file-info
 {
     height: 50px;
-    padding: 10px 10px;
     border: 1px solid #808080;
+    display: flex;
+    flex-direction: row;
 }
 
 .create-file input[type=text]
@@ -104,3 +105,27 @@ header
 .create-file input[type=button] {
     width: 8%;
 }
+
+.name {
+    width: 60%;
+    padding: 10px 10px;
+}
+
+.delete, .download {
+    width: 20%;
+    padding: 10px 10px;
+}
+
+.delete
+{
+    background-color: red;
+    color: white;
+}
+
+.download
+{
+    background-color: blue;
+    color: white;
+}
+
+

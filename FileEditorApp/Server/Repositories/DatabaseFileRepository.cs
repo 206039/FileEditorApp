@@ -20,6 +20,12 @@ namespace FileEditorApp.Server.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(DatabaseFile databaseFile)
+        {
+            _dbContext.DatabaseFiles.Remove(databaseFile);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<DatabaseFile>> GetAsync(int userId)
             => await _dbContext.DatabaseFiles.Where(x => x.UserId == userId).ToListAsync();
         

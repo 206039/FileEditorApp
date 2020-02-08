@@ -10,5 +10,6 @@ namespace FileEditorApp.Server.Services
         Task<IEnumerable<FileDto>> GetAsync(int userId);
         Task<SingleFileDto> GetSingleFileAsync(int id);
         Task UpdateFileAsync(int id, string name, string content);
+        Task DeleteAsync(int id);
     }
 }

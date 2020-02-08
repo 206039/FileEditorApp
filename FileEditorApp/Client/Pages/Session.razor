@@ -11,8 +11,10 @@
         {
             @foreach (var file in Files)
             {
-                <div class="file-info" @onclick="()=> DisplayFile(file.Id)">
-                    @file.Name
+                <div class="file-info" >
+                    <div class="name" @onclick="()=> DisplayFile(file.Id)">@file.Name</div>
+                    <div class="delete" @onclick="()=> DeleteFile(file.Id)">Usuń</div>
+                    <div class="download">Pobierz</div>
                 </div>
             }
         }
